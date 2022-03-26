@@ -18,11 +18,11 @@ namespace Assets.Scripts.Entities
 
         void Start()
         {
+            EntityStart();
+            
             //Initializing controllers
             (MoveController as EntityController)?.SafeInitialize(ref OnUpdateAction, this);
             (StateController as IEntityState)?.Initialize(this);
-
-            EntityStart();
         }
 
         protected abstract void EntityStart();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Entities.Enemies;
 using UnityEngine;
 
 public class GolemCommonAttackBehaviour : StateMachineBehaviour
@@ -19,8 +20,7 @@ public class GolemCommonAttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        var golem = animator.gameObject.GetComponent<Golem>();
-        golem.FinishAttack();
+        animator.gameObject.GetComponent<EnemyBase>().GetMoveController.FinishAttack();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

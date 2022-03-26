@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Entities.Enemies;
 using Assets.Scripts.Entities.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,7 +15,6 @@ public abstract class Enemy : MonoBehaviour
     [Inject] protected PlayerBase Player;
     protected NavMeshAgent NavMeshAgent;
     protected Animator Animator;
-    private Rigidbody Rigidbody;
     
     [Header("Area Triggers")] 
     [SerializeField] protected float TriggerDistance;
@@ -51,8 +51,6 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!isAlive) return;
         
-        Rigidbody.velocity = Vector3.zero;
-        
         switch (Status)
         {
             case EnemyStatus.Wait:
@@ -76,7 +74,6 @@ public abstract class Enemy : MonoBehaviour
     protected void InitDefaults()
     {
         Animator = GetComponent<Animator>();
-        Rigidbody = GetComponent<Rigidbody>();
         
         NavMeshAgent = GetComponent<NavMeshAgent>();
         Return();

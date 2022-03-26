@@ -6,20 +6,13 @@ namespace Assets.Scripts.Entities.Player
     [Serializable]
     public class PlayerMoveController : EntityController
     {
-        enum PlayerControllerStatus
-        {
-            Stay,
-            Walk,
-            Run,
-            Attack
-        }
+        enum PlayerControllerStatus { Stay, Walk, Run, Attack }
 
         public float Speed;
         public float SprintMultiplier;
 
         private Vector3 _moveDir;
         private PlayerBase _playerBase;
-
 
         [SerializeField] private PlayerControllerStatus _controllerStatus;
 
@@ -48,6 +41,13 @@ namespace Assets.Scripts.Entities.Player
 
             _moveDir = Quaternion.Euler(0, -90, 0) * _moveDir;
         }
+        
+        private void UpdateControllerStatus()
+        {
+            if (_moveDir == Vector3.zero) _controllerStatus = PlayerControllerStatus.Stay;
+            else if (Input.GetKey(KeyCode.LeftShift)) _controllerStatus = PlayerControllerStatus.Run;
+            else _controllerStatus = PlayerControllerStatus.Walk;
+        }
 
         private void Move()
         {
@@ -65,13 +65,6 @@ namespace Assets.Scripts.Entities.Player
                     Run();
                     break;
             }
-        }
-
-        private void UpdateControllerStatus()
-        {
-            if (_moveDir == Vector3.zero) _controllerStatus = PlayerControllerStatus.Stay;
-            else if (Input.GetKey(KeyCode.LeftShift)) _controllerStatus = PlayerControllerStatus.Run;
-            else _controllerStatus = PlayerControllerStatus.Walk;
         }
 
         private void Run()

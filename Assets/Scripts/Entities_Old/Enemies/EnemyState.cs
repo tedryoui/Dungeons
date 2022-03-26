@@ -1,30 +1,34 @@
 ﻿using System;
-using Assets.Scripts.Entities_Old;
 
-[Serializable]
-public class EnemyState : IEntityState
+namespace Assets.Scripts.Entities_Old.Enemies
 {
-    public float MaxHealth;
-    public float CrrHealth;
-
-    private Enemy _baseEntity;
-    public void Init(Enemy enemy)
+    [Serializable]
+    public class EnemyState : IEntityState
     {
-        _baseEntity = enemy;
-    }
-    public void Heal(float amount)
-    {
-        throw new NotImplementedException();
-    }
+        public float MaxHealth;
+        public float CrrHealth;
 
-    public void Damage(float amount)
-    {
-        CrrHealth -= amount;
+        private Enemy _baseEntity;
 
-        if (CrrHealth <= 0)
+        public void Init(Enemy enemy)
         {
-            _baseEntity.Kill();
-            CrrHealth = 0;
+            _baseEntity = enemy;
+        }
+
+        public void Heal(float amount)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Damage(float amount)
+        {
+            CrrHealth -= amount;
+
+            if (CrrHealth <= 0)
+            {
+                _baseEntity.Kill();
+                CrrHealth = 0;
+            }
         }
     }
 }

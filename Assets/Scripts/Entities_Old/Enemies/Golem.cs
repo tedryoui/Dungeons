@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Linq;
+using Assets.Scripts.Entities_Old.Enemies;
 
 public class Golem : Enemy, IDamagable
 {
