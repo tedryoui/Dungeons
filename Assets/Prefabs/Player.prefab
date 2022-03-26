@@ -2064,8 +2064,7 @@ GameObject:
   - component: {fileID: 8465689838092074874}
   - component: {fileID: 8465689838092074869}
   - component: {fileID: 8465689838092074875}
-  - component: {fileID: 8465689838092074878}
-  - component: {fileID: 8465689838092074873}
+  - component: {fileID: 6321500601742694085}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2097,13 +2096,13 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8465689838092074879}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 0.0000001
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!136 &8465689838092074869
 CapsuleCollider:
@@ -2138,7 +2137,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8465689838092074878
+--- !u!114 &6321500601742694085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2147,38 +2146,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 8465689838092074879}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c90f4c376c5d8ee499e070f5624f243d, type: 3}
+  m_Script: {fileID: 11500000, guid: 6974a7c0614ed104fb6d2b0ee2385b36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1.8
-  SprintMultiplier: 3
-  flag: 0
-  _isAttacking: 0
-  AttackCenterOffset: 1.5
-  AttackVerticalPos: 1
-  AttackHalfSize: 1.5
-  ForcedAttackSlideDistance: 0.9
---- !u!114 &8465689838092074873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8465689838092074879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 814073a170d11634383954131639398d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gui: {fileID: 0}
-  _craftController:
-    _player: {fileID: 0}
-    _guiHandler: {fileID: 0}
+  MoveController:
+    Speed: 1.5
+    SprintMultiplier: 3
+    _controllerStatus: 0
+    AttackOffset: {x: 0.39, y: 0.99, z: 0.85}
+    AttackSizes: 1
+    ForcedAttackSlideDistance: 1
+  StateController:
+    _maxHealth: 200
+  GuiHandler: {fileID: 0}
   _inventory:
     _items: []
     _crrPotionPointer: 0
-  _state:
-    MaxHealth: 100
 --- !u!1 &8597749211375310309
 GameObject:
   m_ObjectHideFlags: 0

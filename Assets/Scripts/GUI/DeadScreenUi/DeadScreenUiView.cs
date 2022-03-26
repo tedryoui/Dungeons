@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Entities.Player;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
@@ -9,6 +10,6 @@ public class DeadScreenUiView : MonoBehaviour
 
     public void Revive()
     {
-        GameObject.FindWithTag("Player").GetComponent<PlayerBase>()?.Revive();
+        GameObject.FindWithTag("Player").GetComponent<PlayerBase>().GetState.Revive();
     }
 }

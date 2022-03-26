@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
@@ -31,7 +32,7 @@ public class Jug : MonoBehaviour, IDamagable, IItemDroppable
     {
         foreach (ItemDrop itemDrop in Drop)
             if(Random.Range(0, 1) <= itemDrop.Chance)
-                _playerBase.GetItemContainer.AddItem(itemDrop.Item, 
+                _playerBase.Inventory.AddItem(itemDrop.Item, 
                     (int)(itemDrop.Amount /** Random.Range(0f, 0.5f)*/));
     }
 }

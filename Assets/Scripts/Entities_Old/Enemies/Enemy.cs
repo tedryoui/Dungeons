@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,7 +9,7 @@ using Random = System.Random;
 
 public abstract class Enemy : MonoBehaviour
 {
-    public enum EnemyStatus {Wait, Chaise, Return, Prepare, Away, Attack }
+    public enum EnemyStatus {Wait, Chaise, Return, Prepare, Away, Attack, Hitted }
     
     [Inject] protected PlayerBase Player;
     protected NavMeshAgent NavMeshAgent;
@@ -111,7 +112,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Chaise()
     {
-        if (Player.GetState.IsDead())
+        if (Player.GetState.IsDead)
         {
             Status = EnemyStatus.Return;
             return;
@@ -139,7 +140,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Prepare()
     {
-        if (Player.GetState.IsDead())
+        if (Player.GetState.IsDead)
         {
             Status = EnemyStatus.Return;
             return;

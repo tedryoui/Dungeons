@@ -1,4 +1,5 @@
 ﻿using System;
+using Assets.Scripts.Entities_Old;
 
 [Serializable]
 public class EnemyState : IEntityState

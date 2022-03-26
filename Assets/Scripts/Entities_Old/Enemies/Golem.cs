@@ -32,7 +32,10 @@ public class Golem : Enemy, IDamagable
             Status = EnemyStatus.Chaise;
             CrrAction = null;
         } else
+        {
+            transform.rotation = Quaternion.LookRotation( Player.transform.position - transform.position);
             Animator.SetTrigger(CrrAction.ActionName);
+        }
     }
 
     protected void CastCommonAttack()

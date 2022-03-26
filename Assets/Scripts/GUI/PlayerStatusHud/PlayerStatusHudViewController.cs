@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Entities.Player;
 
 [Serializable]
 public class PlayerStatusHudViewController

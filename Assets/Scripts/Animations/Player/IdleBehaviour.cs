@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 
 public class IdleBehaviour : StateMachineBehaviour
@@ -6,7 +7,7 @@ public class IdleBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<PlayerController>().FinishAttack();
+        animator.gameObject.GetComponent<PlayerBase>().GetMoveController.FinishAttack();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

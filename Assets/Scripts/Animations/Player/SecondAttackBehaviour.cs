@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 
 public class SecondAttackBehaviour : StateMachineBehaviour
@@ -17,7 +18,7 @@ public class SecondAttackBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<PlayerController>().FinishAttack();
+        animator.gameObject.GetComponent<PlayerBase>().GetMoveController.FinishAttack();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

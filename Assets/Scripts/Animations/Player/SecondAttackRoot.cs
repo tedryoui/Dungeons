@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 
 public class SecondAttackRoot : StateMachineBehaviour
@@ -6,13 +7,13 @@ public class SecondAttackRoot : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<PlayerController>().LookToCursor();
+        animator.gameObject.GetComponent<PlayerBase>().GetMoveController.LookToCursor();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<PlayerController>().ForcedAttackSlide(stateInfo.length);   
+        animator.gameObject.GetComponent<PlayerBase>().GetMoveController.ForcedAttackSlide(stateInfo.length);   
         
     }
 

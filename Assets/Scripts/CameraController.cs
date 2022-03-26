@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 using Zenject;
 

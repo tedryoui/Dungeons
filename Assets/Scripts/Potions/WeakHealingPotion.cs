@@ -1,4 +1,4 @@
-﻿
+﻿using Assets.Scripts.Entities;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Potion/WeakHealingPotion")]
