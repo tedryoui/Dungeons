@@ -9,6 +9,7 @@ public class GuiHandler : MonoBehaviour
     public PlayerStatusHudViewController PlayerStatusHud;
     public DeadScreenUiViewController DeadScreenUi;
     public StartScreenUiViewController StartScreenUi;
+    public StatusBarHudViewController StatusBarHud;
 
     void Update()
     {

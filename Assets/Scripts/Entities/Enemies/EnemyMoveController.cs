@@ -34,6 +34,8 @@ namespace Assets.Scripts.Entities.Enemies
         [Space]
         [SerializeField] protected EnemyAction CrrAction;
         [SerializeField] protected EnemyControllerStatus Status;
+
+        [Space] [SerializeField] protected GameObject Boom;
         protected override void Initialize<T1, T2>(EntityBase<T1, T2> _entityBase)
         {
             _enemyBase = _entityBase as EnemyBase;
@@ -220,6 +222,9 @@ namespace Assets.Scripts.Entities.Enemies
         }
         public IEnumerator Fall()
         {
+            // Wrong single respons.
+            GameObject.Instantiate(Boom, _enemyBase.transform.position, Quaternion.identity, _enemyBase.transform);
+            
             yield return new WaitForSeconds(4);
             Object.Destroy(_enemyBase.gameObject.GetComponent<BoxCollider>());
             Object.Destroy(_enemyBase.gameObject.GetComponent<NavMeshAgent>());

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Item;
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Player
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Entities.Player
         public List<ItemAmount> Items => _items;
         public List<ItemAmount> GetPotions => Items.Where(x => x.Item is Potion).ToList();
 
-        public bool AddItem(Item item, int amount)
+        public bool AddItem(Item.Item item, int amount)
         {
             try
             {
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Entities.Player
             }
         }
 
-        public bool RemoveItem(Item item, int amount = 1)
+        public bool RemoveItem(Item.Item item, int amount = 1)
         {
             try
             {
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Entities.Player
             }
         }
 
-        public bool CheckForItem(Item item, int amount)
+        public bool CheckForItem(Item.Item item, int amount)
         {
             return Items.Any(x => x.Item.ItemID == item.ItemID && x.Amount >= amount);
         }
@@ -102,7 +103,7 @@ namespace Assets.Scripts.Entities.Player
             _playerBase.GuiHandler.PotionHud.PulseCrr();
         }
 
-        private void UpdateDueToTheItem(Item item)
+        private void UpdateDueToTheItem(Item.Item item)
         {
             if (item is Potion)
                 _playerBase.GuiHandler.PotionHud.Update(this, _crrPotionPointer);

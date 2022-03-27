@@ -7,8 +7,12 @@ namespace Assets.Scripts.Entities.Enemies
 {
     public class EnemyBase : EntityBase<EnemyMoveController, EnemyState>, IDamagable
     {
-        //Spot
-        [SerializeField] public EnemySpot Spot;
+        //Fields
+        public EnemySpot Spot;
+        [SerializeField] private EnemyStash _enemyStash; 
+        
+        //Properties
+        public EnemyStash EnemyStash => _enemyStash;
         
         //Player reference
         [Inject] public PlayerBase PlayerBase { get; private set; }
@@ -25,6 +29,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected override void EntityUpdate()
         {
+            
         }
 
         public void OverlapAttackAreaByActionName() => MoveController.OverlapAttackAreaByCrrAction();

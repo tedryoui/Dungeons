@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu]
-public class Item : ScriptableObject
+namespace Assets.Scripts.Item
 {
-    public string Name;
-    public Sprite Icon;
-    public int ItemID;
+    [CreateAssetMenu]
+    public class Item : ScriptableObject
+    {
+        public string Name;
+        public Sprite Icon;
+        public int ItemID;
+    }
 }

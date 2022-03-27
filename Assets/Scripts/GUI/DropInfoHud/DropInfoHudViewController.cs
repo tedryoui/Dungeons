@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Item;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using Object = UnityEngine.Object;

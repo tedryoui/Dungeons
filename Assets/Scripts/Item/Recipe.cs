@@ -1,13 +1,6 @@
-using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using UnityEngine;
-
-[Serializable]
-public class ItemAmount
-{
-    public Item Item;
-    public int Amount;
-}
 
 [CreateAssetMenu]
 public class Recipe : ScriptableObject

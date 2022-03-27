@@ -101,6 +101,7 @@ namespace Assets.Scripts.Entities.Player
         public Vector3 AttackOffset;
         public float AttackSizes;
         public float ForcedAttackSlideDistance;
+        public GameObject HitParticle;
 
         public void LookToCursor()
         {
@@ -128,7 +129,14 @@ namespace Assets.Scripts.Entities.Player
                 if (col.CompareTag("Player")) return;
                 
                 var damagable = col.GetComponent<IDamagable>();
-                damagable?.GetDamage(5);
+                
+                if(damagable != null)
+                {
+                    damagable.GetDamage(5);
+
+                    var particlePos = _playerBase.transform.position + _playerBase.transform.TransformVector(AttackOffset);
+                    GameObject.Instantiate(HitParticle, particlePos, Quaternion.identity, null);
+                }
             }
         }
 
