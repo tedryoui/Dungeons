@@ -26,7 +26,7 @@ namespace Assets.Scripts.Entities.Player
             
         }
 
-        public void GetDamage(float damage) => StateController.Damage(damage);
+        public bool GetDamage(float damage) => StateController.Injure(damage);
         public void DealDamage() => MoveController.DealDamage();
         
         void OnDrawGizmosSelected()
@@ -38,5 +38,7 @@ namespace Assets.Scripts.Entities.Player
             transform.position + transform.TransformVector(MoveController.AttackOffset),
                 MoveController.AttackSizes);
         }
+
+        
     }    
 }

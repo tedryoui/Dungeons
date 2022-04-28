@@ -13,7 +13,7 @@ public class Box : MonoBehaviour, IDamagable, IItemDroppable
     private int health = 2;
     public List<ItemDrop> Drop;
 
-    public void GetDamage(float damage)
+    public bool GetDamage(float damage)
     {
         health--;
         var part = Instantiate(destroyParticle);
@@ -24,6 +24,8 @@ public class Box : MonoBehaviour, IDamagable, IItemDroppable
             DropItems(_playerBase);
             Destroy(gameObject);
         }
+
+        return true;
     }
 
     public void DropItems<T1, T2>(EntityBase<T1, T2> toWho) where T1 : EntityController where T2 : IEntityState

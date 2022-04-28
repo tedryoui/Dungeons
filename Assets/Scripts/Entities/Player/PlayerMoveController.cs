@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Entities.Player
@@ -8,7 +9,6 @@ namespace Assets.Scripts.Entities.Player
     {
         enum PlayerControllerStatus { Stay, Walk, Run, Attack }
 
-        public float Speed;
         public float SprintMultiplier;
 
         private Vector3 _moveDir;
@@ -73,7 +73,7 @@ namespace Assets.Scripts.Entities.Player
             _playerBase.Animator.SetBool("isRunning", true);
 
             //Translating with a [Speed * SpeedMultiplier] by [moveDir]
-            _playerBase.transform.position += _moveDir * (Speed * SprintMultiplier) * Time.deltaTime;
+            _playerBase.transform.position += _moveDir * (_playerBase.GetState.Speed * SprintMultiplier) * Time.deltaTime;
 
             //Rotating to the [moveDir]
             _playerBase.transform.LookAt(_playerBase.transform.position + _moveDir);
@@ -85,7 +85,7 @@ namespace Assets.Scripts.Entities.Player
             _playerBase.Animator.SetBool("isRunning", false);
 
             //Translating with a [Speed] by [moveDir]
-            _playerBase.transform.position += _moveDir * Speed * Time.deltaTime;
+            _playerBase.transform.position += _moveDir * _playerBase.GetState.Speed * Time.deltaTime;
 
             //Rotating to the [moveDir]
             _playerBase.transform.LookAt(_playerBase.transform.position + _moveDir);
@@ -123,21 +123,20 @@ namespace Assets.Scripts.Entities.Player
             var colliders = Physics.OverlapSphere(
                 _playerBase.transform.position + _playerBase.transform.TransformVector(AttackOffset),
                 AttackSizes);
-
-            foreach (Collider col in colliders)
+            
+            colliders.ToList().ForEach((value) =>
             {
-                if (col.CompareTag("Player")) return;
-                
-                var damagable = col.GetComponent<IDamagable>();
-                
-                if(damagable != null)
+                if (!value.CompareTag("Player"))
                 {
-                    damagable.GetDamage(5);
-
-                    var particlePos = _playerBase.transform.position + _playerBase.transform.TransformVector(AttackOffset);
-                    GameObject.Instantiate(HitParticle, particlePos, Quaternion.identity, null);
+                    var damagable = value.GetComponent<IDamagable>();
+                    
+                    if(damagable != null && damagable.GetDamage(_playerBase.GetState.Damage))
+                    {
+                        var particlePos = _playerBase.transform.position + _playerBase.transform.TransformVector(AttackOffset);
+                        GameObject.Instantiate(HitParticle, particlePos, Quaternion.identity, null);
+                    }
                 }
-            }
+            });
         }
 
         public void FinishAttack()

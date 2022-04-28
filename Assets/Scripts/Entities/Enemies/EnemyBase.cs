@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Entities.Player;
+﻿using System;
+using Assets.Scripts.Entities.Player;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
@@ -8,19 +9,23 @@ namespace Assets.Scripts.Entities.Enemies
     public class EnemyBase : EntityBase<EnemyMoveController, EnemyState>, IDamagable
     {
         //Fields
-        public EnemySpot Spot;
+        [SerializeField] private string _indivName;
         [SerializeField] private EnemyStash _enemyStash; 
         
         //Properties
         public EnemyStash EnemyStash => _enemyStash;
+        public string Name => _indivName;
         
         //Player reference
         [Inject] public PlayerBase PlayerBase { get; private set; }
         
+        //Actions
+        public Action OnDestroyAction;
+        
         // Components
         public NavMeshAgent NavMeshAgent { get; private set; }
         public Animator Animator { get; private set; }
-        
+
         protected override void EntityStart()
         {
             NavMeshAgent = GetComponent<NavMeshAgent>();
@@ -32,13 +37,13 @@ namespace Assets.Scripts.Entities.Enemies
             
         }
 
-        public void OverlapAttackAreaByActionName() => MoveController.OverlapAttackAreaByCrrAction();
+        public void OverlapAttackAreaByCrrAction() => MoveController.OverlapAttackAreaByCrrAction();
 
-        protected void FallDown() =>
-            StartCoroutine(MoveController.Fall());
-        public void GetDamage(float damage)
-        {
-            GetState.Damage(damage);
-        }
+        protected void FallDown() => StartCoroutine(MoveController.Fall());
+
+        public bool GetDamage(float damage) => GetState.Injure(damage);
+
+        void OnDrawGizmosSelected() => MoveController.DrawGizmos(transform);
+
     }
 }

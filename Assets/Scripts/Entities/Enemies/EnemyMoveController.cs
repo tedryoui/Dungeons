@@ -27,8 +27,7 @@ namespace Assets.Scripts.Entities.Enemies
         
         private Vector3 CrrTargetPosition { get; set; }
         
-        [Header("Enemy stats")] 
-        [SerializeField] protected float Speed;
+        [Header("Actions")]
         [SerializeField] protected List<EnemyAction> Actions;
         
         [Space]
@@ -36,13 +35,13 @@ namespace Assets.Scripts.Entities.Enemies
         [SerializeField] protected EnemyControllerStatus Status;
 
         [Space] [SerializeField] protected GameObject Boom;
+        protected Vector3 SpawnPoint;
         protected override void Initialize<T1, T2>(EntityBase<T1, T2> _entityBase)
         {
             _enemyBase = _entityBase as EnemyBase;
         
             NavMeshAgent.stoppingDistance = DefendDistance;
-            NavMeshAgent.speed = Speed;
-            Return();
+            NavMeshAgent.speed = _enemyBase.GetState.Speed;
         }
 
         protected override void Update()
@@ -79,11 +78,15 @@ namespace Assets.Scripts.Entities.Enemies
             NavMeshAgent.isStopped = false;
             Animator.SetBool("isMoving", true);
             
-            SetDestination(_enemyBase.Spot.transform.position);
+            SetDestination(SpawnPoint);
             Status = EnemyControllerStatus.Return;
+            _enemyBase.GetState.IsVulnerable = false;
 
             if (IsReachedDestination())
+            {
+                _enemyBase.GetState.IsVulnerable = true;
                 Wait();
+            }
         }
 
         protected void Wait()
@@ -100,7 +103,7 @@ namespace Assets.Scripts.Entities.Enemies
 
         protected void Chaise()
         {
-            if (ReturnIfPlayerIsDead()) return;
+            if (ReturnIfPlayerUndamagable()) return;
             
             SetDestination(PlayerPosition);
             Status = EnemyControllerStatus.Chaise;
@@ -116,13 +119,13 @@ namespace Assets.Scripts.Entities.Enemies
             //Make coroutine to wait, chech for position and then go
             if(NavMeshAgent.remainingDistance > TriggerDistance) 
                 Return();
-            else if (Vector3.Distance(PlayerPosition, _enemyBase.Spot.transform.position) > _enemyBase.Spot.PlayerInRadius)
-                Return();
+            // else if (Vector3.Distance(PlayerPosition, SpawnPoint) > 10f)
+            //     Return();
         }
 
         protected void Prepare()
         {
-            if (ReturnIfPlayerIsDead()) return;
+            if (ReturnIfPlayerUndamagable()) return;
             
             Status = EnemyControllerStatus.Prepare;
             SetDestination(PlayerPosition);
@@ -159,7 +162,7 @@ namespace Assets.Scripts.Entities.Enemies
             else
             {
                 _enemyBase.transform.position += (CrrTargetPosition - _enemyBase.transform.position).normalized
-                                      * -1 * (Speed / 2) * Time.deltaTime;
+                                      * -1 * (_enemyBase.GetState.Speed / 2) * Time.deltaTime;
                 Animator.SetBool("isFleeing", true);
                 Animator.SetBool("isMoving", false);
             }
@@ -208,10 +211,11 @@ namespace Assets.Scripts.Entities.Enemies
             
             if(colliders.Any(x => x.CompareTag("Player")) && CrrAction != null)
             {
-                _enemyBase.PlayerBase.GetDamage(CrrAction.Damage);
-
-                var particlePos = new Vector3(PlayerPosition.x, CrrAction.AttackOffset.y, PlayerPosition.z);
-                Object.Instantiate(CrrAction.HitParticle, particlePos, Quaternion.identity, null);
+                if(_enemyBase.PlayerBase.GetState.Injure(CrrAction.Damage))
+                {
+                    var particlePos = new Vector3(PlayerPosition.x, CrrAction.AttackOffset.y, PlayerPosition.z);
+                    Object.Instantiate(CrrAction.HitParticle, particlePos, Quaternion.identity, null);
+                }
             }
         }
         
@@ -222,14 +226,12 @@ namespace Assets.Scripts.Entities.Enemies
         }
         public IEnumerator Fall()
         {
-            // Wrong single respons.
             GameObject.Instantiate(Boom, _enemyBase.transform.position, Quaternion.identity, _enemyBase.transform);
             
             yield return new WaitForSeconds(4);
-            Object.Destroy(_enemyBase.gameObject.GetComponent<BoxCollider>());
-            Object.Destroy(_enemyBase.gameObject.GetComponent<NavMeshAgent>());
-            yield return new WaitForSeconds(4);
-            Object.Destroy(_enemyBase.gameObject);
+            _enemyBase.OnDestroyAction();
+            
+            _enemyBase.Animator.SetTrigger("Reset");
         }
         protected bool IsReachedDestination()
         {
@@ -237,9 +239,10 @@ namespace Assets.Scripts.Entities.Enemies
                 return NavMeshAgent.remainingDistance < NavMeshAgent.stoppingDistance;
             else return false;
         }
-        private bool ReturnIfPlayerIsDead()
+        private bool ReturnIfPlayerUndamagable()
         {
-            if (_enemyBase.PlayerBase.GetState.IsDead)
+            if (_enemyBase.PlayerBase.GetState.IsDead ||
+                !_enemyBase.PlayerBase.GetState.IsVulnerable)
             {
                 Status = EnemyControllerStatus.Return;
                 return true;
@@ -251,6 +254,42 @@ namespace Assets.Scripts.Entities.Enemies
         {
             CrrTargetPosition = target;
             _enemyBase.NavMeshAgent.SetDestination(target);
+        }
+        public void Stop()
+        {
+            CrrAction = null;
+            Status = EnemyControllerStatus.Wait;
+
+            _enemyBase.Animator.enabled = false;
+            _enemyBase.NavMeshAgent.enabled = false;
+        }
+
+        public void Start(Vector3 spawnPoint)
+        {
+            SpawnPoint = spawnPoint;
+            Status = EnemyControllerStatus.Return;
+            
+            _enemyBase.Animator.enabled = true;
+            _enemyBase.NavMeshAgent.enabled = true;
+        }
+
+        public void DrawGizmos(Transform parent)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(parent.position, DefendDistance);
+            
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(parent.position, AttackDistance);
+            
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(parent.position, TriggerDistance);
+            
+            if(CrrAction != null)
+            {
+                Gizmos.color = Color.magenta;
+                Gizmos.DrawWireSphere(parent.position + parent.TransformVector(CrrAction.AttackOffset),
+                    CrrAction.AttackSizes);
+            }
         }
     }
 }

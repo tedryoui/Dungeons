@@ -17,8 +17,8 @@ GameObject:
   m_Name: Box_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2559810838395413726
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5129442236857904303}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -99,6 +99,9 @@ MonoBehaviour:
   Drop:
   - Item: {fileID: 11400000, guid: 54d6bf162bc1db54a9594d6fc7ee988b, type: 2}
     Amount: 5
+    Chance: 1
+  - Item: {fileID: 11400000, guid: 716899dd12fbcea419b561d62d417d8a, type: 2}
+    Amount: 1
     Chance: 1
 --- !u!65 &7510280211715060364
 BoxCollider:

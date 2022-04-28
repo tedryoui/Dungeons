@@ -71,7 +71,7 @@ namespace Assets.Scripts.Entities.Player
             return Items.Any(x => x.Item.ItemID == item.ItemID && x.Amount >= amount);
         }
 
-        public void SwitchToTheRight()
+        public void SwitchToTheLeft()
         {
             var count = GetPotions.Count;
             if (count == 0) return;
@@ -82,7 +82,7 @@ namespace Assets.Scripts.Entities.Player
         }
 
 
-        public void SwitchToTheLeft()
+        public void SwitchToTheRight()
         {
             var count = GetPotions.Count;
             if (count == 0) return;
