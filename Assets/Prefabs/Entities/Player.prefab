@@ -2097,7 +2097,7 @@ Rigidbody:
   m_GameObject: {fileID: 8465689838092074879}
   serializedVersion: 2
   m_Mass: 0.0000001
-  m_Drag: 0
+  m_Drag: 100
   m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -2159,6 +2159,10 @@ MonoBehaviour:
     HitParticle: {fileID: 100000, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
   StateController:
     _maxHealth: 200
+    _speed: 1.5
+    _damage: 5
+    SpeedBonus: 0
+    DamageBonus: 0
   GuiHandler: {fileID: 0}
   _inventory:
     _items: []

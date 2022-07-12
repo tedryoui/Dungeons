@@ -103,7 +103,7 @@ MonoBehaviour:
   - Item: {fileID: 11400000, guid: d42167a54d3656d4c866785d7fa62ccf, type: 2}
     Amount: 4
     Chance: 1
-  - Item: {fileID: 11400000, guid: 2c353d6da915341429e1ac8de3b077bc, type: 2}
+  - Item: {fileID: 11400000, guid: 54d6bf162bc1db54a9594d6fc7ee988b, type: 2}
     Amount: 1
     Chance: 0.1
 --- !u!65 &6256276197725070834

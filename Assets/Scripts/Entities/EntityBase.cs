@@ -16,7 +16,7 @@ namespace Assets.Scripts.Entities
 
         protected Action OnUpdateAction;
 
-        void Start()
+        void Awake()
         {
             EntityStart();
             
@@ -38,5 +38,6 @@ namespace Assets.Scripts.Entities
         }
 
         protected abstract void EntityUpdate();
+
     }
 }

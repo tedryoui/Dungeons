@@ -1,3 +1,4 @@
+using Assets.Scripts.GUI.RecipeItemsHud;
 using UnityEngine;
 
 public class GuiHandler : MonoBehaviour
@@ -10,6 +11,7 @@ public class GuiHandler : MonoBehaviour
     public DeadScreenUiViewController DeadScreenUi;
     public StartScreenUiViewController StartScreenUi;
     public StatusBarHudViewController StatusBarHud;
+    public RecipeItemsHudViewController RecipeItemsHud;
 
     void Update()
     {
@@ -18,7 +20,12 @@ public class GuiHandler : MonoBehaviour
         if (player != null)
         {
             if (StartScreenUi.IsGameStopped && Input.anyKeyDown)
-                StartScreenUi.HideStartScreenUi();
+            {
+                if(Input.GetKeyDown(KeyCode.Escape))
+                    Application.Quit();
+                else
+                    StartScreenUi.HideStartScreenUi();
+            }
             else if (!StartScreenUi.IsGameStopped && Input.GetKeyDown(KeyCode.Escape))
                 StartScreenUi.ShowStartScreenUi();
         }

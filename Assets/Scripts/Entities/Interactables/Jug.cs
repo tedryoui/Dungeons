@@ -12,13 +12,15 @@ public class Jug : MonoBehaviour, IDamagable, IItemDroppable
     public GameObject destroyParticle;
     public List<ItemDrop> Drop;
     
-    public void GetDamage(float damage)
+    public bool GetDamage(float damage)
     {
         var part = Instantiate(destroyParticle);
         part.transform.position = transform.position;
         DropItems(_playerBase);
         
         Destroy(gameObject);
+
+        return true;
     }
 
     public void DropItems<T1, T2>(EntityBase<T1, T2> toWho) where T1 : EntityController where T2 : IEntityState
