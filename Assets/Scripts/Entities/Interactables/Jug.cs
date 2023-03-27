@@ -11,13 +11,17 @@ public class Jug : MonoBehaviour, IDamagable, IItemDroppable
     [Inject] private PlayerBase _playerBase;
     public GameObject destroyParticle;
     public List<ItemDrop> Drop;
+
+    public AudioSource AudioSource;
+    public AudioClip BreakClip;
     
     public bool GetDamage(float damage)
     {
         var part = Instantiate(destroyParticle);
         part.transform.position = transform.position;
         DropItems(_playerBase);
-        
+
+        _playerBase.StartCoroutine(AudioSource.PlayAndDestroy(BreakClip));
         Destroy(gameObject);
 
         return true;

@@ -13,6 +13,10 @@ public class Box : MonoBehaviour, IDamagable, IItemDroppable
     private int health = 2;
     public List<ItemDrop> Drop;
 
+    public AudioSource AudioSource;
+    public AudioClip BreakClip;
+    public AudioClip HitClip;
+
     public bool GetDamage(float damage)
     {
         health--;
@@ -22,7 +26,12 @@ public class Box : MonoBehaviour, IDamagable, IItemDroppable
         if(health == 0)
         {
             DropItems(_playerBase);
+            _playerBase.StartCoroutine(AudioSource.PlayAndDestroy(BreakClip));
             Destroy(gameObject);
+        }
+        else
+        {
+           AudioSource.PlayOneShot(HitClip);
         }
 
         return true;

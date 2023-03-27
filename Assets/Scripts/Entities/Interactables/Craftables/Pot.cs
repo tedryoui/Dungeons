@@ -17,10 +17,16 @@ namespace Assets.Scripts.Entities.Interactables.Craftables
         public GameObject InteractGameObject => Resources.Load<GameObject>("Prefabs/QuestionMark");
 
         private GameObject _questionMarkReference = null;
+
+        [SerializeField] private AudioSource AudioSource;
+        [SerializeField] private AudioClip _craftedClip;
         public void Interact()
         {
             if (CanCraft(_playerBase.Inventory))
+            {
                 Craft(_playerBase.Inventory);
+                AudioSource.PlayOneShot(_craftedClip);
+            }
         }
 
         public bool IsInRange()

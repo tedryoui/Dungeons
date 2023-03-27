@@ -29,8 +29,6 @@ public class CameraController : MonoBehaviour
     
     void Start()
     {
-        Offset = transform.position - Target.position;
-
     }
 
     void Update()

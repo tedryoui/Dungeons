@@ -17,4 +17,6 @@ public class PotionHudView : MonoBehaviour
     [Space] 
     [Header("Potion animator")] 
     public Animator PotionAnimator;
+
+    public AudioSource AudioSource;
 }

@@ -1,4 +1,5 @@
 using Assets.Scripts.GUI.RecipeItemsHud;
+using GUI;
 using UnityEngine;
 
 public class GuiHandler : MonoBehaviour
@@ -12,6 +13,7 @@ public class GuiHandler : MonoBehaviour
     public StartScreenUiViewController StartScreenUi;
     public StatusBarHudViewController StatusBarHud;
     public RecipeItemsHudViewController RecipeItemsHud;
+    public ScrollScreenViewModel ScrollScreen;
 
     void Update()
     {

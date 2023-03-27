@@ -42277,10 +42277,24 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.3
+    functionName: PlayClip
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: 84c184065fea7a945bcd36fc9e2ea28a, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.6
     functionName: DealDamage
     data: 
     objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6
+    functionName: PlayClip
+    data: 
+    objectReferenceParameter: {fileID: 8300000, guid: dffe88bfacac689489b2ba876d5e0823, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

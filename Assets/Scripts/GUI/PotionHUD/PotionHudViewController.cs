@@ -7,6 +7,7 @@ using UnityEngine;
 public class PotionHudViewController
 {
     public PotionHudView View;
+    [SerializeField] private AudioClip _changedClip;
     
     private Color32 _transparentColor = new Color32(0, 0, 0, 0);
     private Color32 _defaultColor = new Color32(255, 255, 255, 255);
@@ -18,6 +19,8 @@ public class PotionHudViewController
             Where(x => x.Item is Potion).
             ToList();
         int count = potions.Count;
+        
+        View.AudioSource.PlayOneShot(_changedClip);
 
         if (count == 0)
         {

@@ -25,6 +25,7 @@ namespace Assets.Scripts.Entities.Enemies
         // Components
         public NavMeshAgent NavMeshAgent { get; private set; }
         public Animator Animator { get; private set; }
+        public AudioSource AudioSource;
 
         protected override void EntityStart()
         {
@@ -42,6 +43,7 @@ namespace Assets.Scripts.Entities.Enemies
         protected void FallDown() => StartCoroutine(MoveController.Fall());
 
         public bool GetDamage(float damage) => GetState.Injure(damage);
+        public void PlayClip(AudioClip clip) => this.AudioSource.PlayOneShot(clip);
 
         void OnDrawGizmosSelected() => MoveController.DrawGizmos(transform);
 

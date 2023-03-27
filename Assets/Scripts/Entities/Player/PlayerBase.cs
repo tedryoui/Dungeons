@@ -9,6 +9,7 @@ namespace Assets.Scripts.Entities.Player
 
         //Components
         public Animator Animator { get; private set; }
+        public AudioSource AudioSource;
         
         //Controllers
         [SerializeField] private PlayerInventory _inventory;
@@ -28,6 +29,8 @@ namespace Assets.Scripts.Entities.Player
 
         public bool GetDamage(float damage) => StateController.Injure(damage);
         public void DealDamage() => MoveController.DealDamage();
+
+        public void PlayClip(AudioClip clip) => this.AudioSource.PlayOneShot(clip);
         
         void OnDrawGizmosSelected()
         {
